@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <title>Forest City Scene</title>
+    <title>Sunny Giant Pine Forest</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <a-scene shadow="type: pcfsoft">
       
       <a-assets>
@@ -20,13 +20,11 @@
         <a-asset-item id="grass" src="assets/grass.glb"></a-asset-item>
       </a-assets>
 
-      <a-entity environment="preset: forest; dressingAmount: 0; groundColor: #243016;"></a-entity>
+      <a-entity environment="preset: goldmine; skyType: gradient; skyColor: #4ba4e1; horizonColor: #96ccff; lighting: point; lightPosition: 0 10 10; dressingAmount: 0; groundColor: #2d4a1e; groundColor2: #3a5c27;"></a-entity>
 
-      <a-entity gltf-model="#big-bldg" position="-10 0 -25" scale="1 1 1" shadow></a-entity>
+      <a-entity gltf-model="#big-bldg" position="-10 0 -25" shadow></a-entity>
       <a-entity gltf-model="#factory" position="15 0 -30" rotation="0 -45 0" shadow></a-entity>
       <a-entity gltf-model="#large-bldg-1" position="0 0 -20" shadow></a-entity>
-      <a-entity gltf-model="#large-bldg-2" position="-18 0 -15" rotation="0 90 0" shadow></a-entity>
-      <a-entity gltf-model="#low-bldg" position="8 0 -12" shadow></a-entity>
 
       <script>
         const scene = document.querySelector('a-scene');
@@ -35,35 +33,28 @@
           for (let i = 0; i < count; i++) {
             const el = document.createElement('a-entity');
             el.setAttribute('gltf-model', modelId);
-            
-            // Randomly place around the scene (avoiding the center slightly)
             const x = (Math.random() - 0.5) * range;
             const z = (Math.random() - 0.5) * range - 20;
             el.setAttribute('position', `${x} 0 ${z}`);
-            
-            // Random rotation for organic look
             el.setAttribute('rotation', `0 ${Math.random() * 360} 0`);
-            
-            // Random scale
             const s = Math.random() * (maxScale - minScale) + minScale;
             el.setAttribute('scale', `${s} ${s} ${s}`);
-            
             scene.appendChild(el);
           }
         };
 
-        // When scene loads, generate the forest
         scene.addEventListener('loaded', () => {
-          scatter('#pine', 15, 80, 1.2, 2.5); // Pine forest
-          scatter('#palm', 8, 60, 0.8, 1.5);  // Tropical mix
-          scatter('#grass', 30, 40, 0.5, 1);   // Ground tufts
+          // Pine trees increased by 3 (from 1.2-2.5 to 3.6-7.5 range)
+          scatter('#pine', 20, 100, 3.6, 7.5); 
+          scatter('#palm', 8, 60, 0.8, 1.5);
+          scatter('#grass', 40, 50, 0.5, 1);
         });
       </script>
 
-      <a-entity id="rig" position="0 1.6 5">
-        <a-camera look-controls wasd-controls="acceleration: 20"></a-camera>
+      <a-entity id="rig" position="0 1.6 10">
+        <a-camera look-controls wasd-controls="acceleration: 30"></a-camera>
       </a-entity>
 
     </a-scene>
-  </body>
+</body>
 </html>
